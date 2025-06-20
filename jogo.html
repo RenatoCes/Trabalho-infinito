@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Clicker Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button onclick="voltarMenu()">Voltar ao Menu</button>
+  <button onclick="salvarEmArquivo()">Salvar Progresso</button>
+
+  <h1>Bem-vindo, <span id="nome"></span>!</h1>
+
+  <p>Data: <span id="data"></span></p>
+  <p>Hora: <span id="hora"></span></p>
+
+  <p>Energia: <span id="energia"></span>%</p>
+  <p>Sono: <span id="sono"></span>%</p>
+  
+  <p id="fome">Fome: 0</p>
+  <p id="sede">Sede: 0</p>
+  
+  <p>Nível: <span id="nivel"></span></p>
+  <p>Dinheiro: R$<span id="dinheiro"></span></p>
+
+  <button onclick="trabalhar()">Trabalhar</button>
+  <button onclick="dormir()">Dormir</button>
+
+  <h2>Loja</h2>
+  <div id="loja"></div>
+  
+  <h2>Notificações</h2>
+  <div id="notificacoes" style="border: 1px solid #ccc; padding: 10px; height: 120px; overflow-y: auto;"></div>
+  
+  <section id="painel-missoes">
+    <h2>Missões</h2>
+    <div id="missoes"></div>
+  </section>
+
+
+
+<script src="sistemaDias.js"></script>
+<script src="sistemaSono.js"></script>
+<script src="sistemaTrabalho.js"></script>
+<script src="sistemaTempo.js"></script>
+<script src="jogo.js"></script>
+
+</body>
+</html>

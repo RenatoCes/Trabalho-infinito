@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fim de Jogo</title>
+</head>
+<body>
+  <div class="tela-fim">
+    <h1>Você desmaiou de fome e sede!😵</h1>
+    <p id="nivel"></p>
+    <p id="dinheiro"></p>
+    <button onclick="voltarMenu()">Voltar ao Menu</button>
+  </div>
+
+  <script>
+    const dados = JSON.parse(localStorage.getItem("fimDeJogo"));
+
+    document.getElementById("nivel").textContent = "Nível alcançado: " + dados.nivel;
+    document.getElementById("dinheiro").textContent = "Dinheiro acumulado: R$ " + dados.dinheiro;
+
+    function voltarMenu() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
