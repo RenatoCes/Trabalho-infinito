@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Clicker Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button onclick="voltarMenu()">Voltar ao Menu</button>
-  <button onclick="salvarEmArquivo()">Salvar Progresso</button>
 
-  <h1>Bem-vindo, <span id="nome"></span>!</h1>
+  <header id="data-horas">
+    <h1>Bem-vindo, <span id="nome"></span>!</h1>
+    <p>Data: <span id="data"></span></p>
+    <p>Hora: <span id="hora"></span></p>
+  </header>
 
-  <p>Data: <span id="data"></span></p>
-  <p>Hora: <span id="hora"></span></p>
-
-  <p>Energia: <span id="energia"></span>%</p>
-  <p>Sono: <span id="sono"></span>%</p>
-  
-  <p id="fome">Fome: 0</p>
-  <p id="sede">Sede: 0</p>
-  
-  <p>Nível: <span id="nivel"></span></p>
-  <p>Dinheiro: R$<span id="dinheiro"></span></p>
-  <div id="container-contas"></div>
-
-  <button onclick="trabalhar()">Trabalhar</button>
-  <button onclick="dormir()">Dormir</button>
-
-  <h2>Loja</h2>
-  <div id="loja"></div>
-  
-  <h2>Notificações</h2>
-  <div id="notificacoes" style="border: 1px solid #ccc; padding: 10px; height: 120px; overflow-y: auto;"></div>
-  
-  <section id="painel-missoes">
-    <h2>Missões</h2>
-    <div id="missoes"></div>
+  <section id="status-container" aria-label="Status do jogador">
+    <div class="status-item">Dinheiro: R$<span id="dinheiro">0</span></div>
+    <div class="status-item">Fome: <span id="fome">0%</span></div>
+    <div class="status-item">Sede: <span id="sede">0%</span></div>
+    <div class="status-item">Energia: <span id="energia">0%</span></div>
+    <div class="status-item">Sono: <span id="sono">0%</span></div>
+    <div class="status-item">Nível: <span id="nivel"></span></div>
   </section>
 
+  <div id="td"></div>
 
+  <nav id="acoes">
+    <button class="btn-td" onclick="trabalhar()">Trabalhar</button>
+    <button class="btn-td" onclick="dormir()">Dormir</button>
+  </nav>
 
-<script src="sistemaDias.js"></script>
-<script src="sistemaSono.js"></script>
-<script src="sistemaTrabalho.js"></script>
-<script src="sistemaTempo.js"></script>
-<script src="jogo.js"></script>
+  <main id="main-container">
+    <section id="container-loja" aria-label="Loja">
+      <h3>Loja</h3>
+      <div id="loja"></div>
+    </section>
+
+    <section aria-label="Contas do Mês">
+      <h3>Contas do Mês</h3>
+      <div id="container-contas"></div>
+    </section>
+
+    <section id="container-painel-missoes" aria-label="Painel de Missões">
+      <h3>Missões</h3>
+      <div id="painel-missoes"></div>
+    </section>
+  </main>
+  
+  <section aria-label="Notificações">
+    <h2>Notificações</h2>
+    <div id="notificacoes" style="border: 1px solid #ccc; padding: 10px; height: 120px; overflow-y: auto;"></div>
+  </section>
+
+  <footer>
+    <button onclick="voltarMenu()">Voltar ao Menu</button>
+    <button onclick="salvarEmArquivo()">Salvar Progresso</button>
+  </footer>
+
+  <script src="sistemaDias.js"></script>
+  <script src="sistemaSono.js"></script>
+  <script src="sistemaTrabalho.js"></script>
+  <script src="sistemaTempo.js"></script>
+  <script src="jogo.js"></script>
 
 </body>
 </html>

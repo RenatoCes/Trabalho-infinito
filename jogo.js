@@ -163,8 +163,8 @@ function atualizarTela() {
   document.getElementById("data").textContent = `${saveData.data.dia.toString().padStart(2, "0")}/${saveData.data.mes.toString().padStart(2, "0")}/${saveData.data.ano}`;
   document.getElementById("hora").textContent = `${saveData.hora.toString().padStart(2, "0")}:00`;
   document.getElementById("nivel").textContent = saveData.nivel;
-  document.getElementById("fome").textContent = `Fome: ${saveData.fome}`;
-  document.getElementById("sede").textContent = `Sede: ${saveData.sede}`;
+  document.getElementById("fome").textContent = `${saveData.fome}`;
+  document.getElementById("sede").textContent = `${saveData.sede}`;
 
 }
 
@@ -191,7 +191,7 @@ setInterval(() => {
   if (saveData.fome >= 100 && saveData.sede >= 100) {
   localStorage.setItem("fimDeJogo", JSON.stringify({
     nivel: saveData.nivel,
-    dinheiro: saveData.dinheiro
+    dinheiro: saveData.dinheiro,
   }));
   window.location.href = "fim.html";
 }
@@ -298,6 +298,7 @@ function atualizarContasNovoMes() {
 
 
 function atualizarLoja() {
+  
   const lojaDiv = document.getElementById("loja");
   lojaDiv.innerHTML = ""; // limpa loja antes de renderizar
 
@@ -308,8 +309,8 @@ function atualizarLoja() {
         <strong>${item.nome}</strong><br>
         Preço: $${item.preco}<br>
         Nível: ${item.nivel}<br>
-      Efeito: ${Object.entries(item.efeito).map(([key, val]) => `${key}: ${val}`).join(", ")}
-        <button onclick="comprarItem(${index})">Comprar</button> 
+        Efeito -> ${Object.entries(item.efeito).map(([key, val]) => `${key}: ${val}`).join(", ")}<br>
+        <button onclick="comprarItem(${index})">Comprar</button>
       `;
       lojaDiv.appendChild(itemDiv);
     }
@@ -319,7 +320,7 @@ function atualizarLoja() {
 
 
 function atualizarMissoes() {
-  const missoesDiv = document.getElementById("missoes");
+  const missoesDiv = document.getElementById("painel-missoes");
   if (!missoesDiv) return;
 
   missoesDiv.innerHTML = "";
