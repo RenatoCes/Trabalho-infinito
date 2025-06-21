@@ -10,7 +10,9 @@ let saveData = {
   cliquesTrabalho: 0,
   fome: 0,
   sede: 0,
-
+  contaAluguel: false,
+  contaEnergia: false,
+  contaAgua:false,
 };
 
 
@@ -99,6 +101,32 @@ const missoesDisponiveis = [
     concluida: false
   },
 ];
+
+
+
+const juros = 0.1; // 10% de juros
+
+const contas = {
+  aluguel: {
+    nome: "Aluguel",
+    valorBase: 500,
+    valorAtual: 500,
+    paga: false
+  },
+  energia: {
+    nome: "Energia",
+    valorBase: 150,
+    valorAtual: 150,
+    paga: false
+  },
+  agua: {
+    nome: "Água",
+    valorBase: 100,
+    valorAtual: 100,
+    paga: false
+  }
+};
+
 
 
 
@@ -191,6 +219,84 @@ setInterval(() => {
 
 
 
+function exibirContas() {
+  const container = document.getElementById("container-contas");
+  container.innerHTML = "";
+
+  for (let chave in contas) {
+    const conta = contas[chave];
+
+    const div = document.createElement("div");
+    div.classList.add("conta");
+
+    div.innerHTML = `
+      <strong>${conta.nome}</strong><br>
+      Valor: R$${conta.valorAtual.toFixed(2)}<br>
+      Status: ${conta.paga ? "Paga" : "Em aberto"}<br>
+    `;
+
+    const botao = document.createElement("button");
+    botao.textContent = "Pagar";
+    botao.disabled = conta.paga;
+    botao.onclick = () => pagarConta(chave);
+
+    div.appendChild(botao);
+    container.appendChild(div);
+  }
+}
+
+
+
+function pagarConta(nomeConta) {
+  const conta = contas[nomeConta];
+  if (!conta.paga) {
+    if (saveData.dinheiro >= conta.valorAtual) {
+      saveData.dinheiro -= conta.valorAtual;
+      conta.paga = true;
+      if (conta.nome =  "Aluguel") {
+        saveData.contaAluguel = true;
+      }
+      if (conta.nome =  "Energia") {
+        saveData.contaEnergia = true;
+      }
+      if (conta.nome =  "Água") {
+        saveData.contaAgua = true;
+      }  
+      conta.valorAtual = conta.valorBase;
+      exibirContas();
+    } else {
+      alert("Dinheiro insuficiente!");
+    }
+  }
+}
+
+
+
+function atualizarContasNovoMes() {
+  for (let chave in contas) {
+    const conta = contas[chave];
+    if (!conta.paga) {
+      const jurosValor = conta.valorAtual * juros;
+      conta.valorAtual += jurosValor;
+    } else {
+      conta.valorAtual = conta.valorBase; // reseta
+    }
+    conta.paga = false;
+    if (conta.nome =  "Aluguel") {
+        saveData.contaAluguel = true;
+    }
+    if (conta.nome =  "Energia") {
+      saveData.contaEnergia = true;
+    }
+    if (conta.nome =  "Água") {
+      saveData.contaAgua = true;
+    } 
+  }
+  exibirContas();
+}
+
+
+
 function atualizarLoja() {
   const lojaDiv = document.getElementById("loja");
   lojaDiv.innerHTML = ""; // limpa loja antes de renderizar
@@ -199,7 +305,10 @@ function atualizarLoja() {
     if (saveData.nivel >= item.nivel) {
       const itemDiv = document.createElement("div");
       itemDiv.innerHTML = `
-        <p>${item.nome}\nR$${item.preco}\n${item.efeito}</p>
+        <strong>${item.nome}</strong><br>
+        Preço: $${item.preco}<br>
+        Nível: ${item.nivel}<br>
+      Efeito: ${Object.entries(item.efeito).map(([key, val]) => `${key}: ${val}`).join(", ")}
         <button onclick="comprarItem(${index})">Comprar</button> 
       `;
       lojaDiv.appendChild(itemDiv);
@@ -379,10 +488,11 @@ function passarDia() {
   // Reset diário
   saveData.dormiuHoje = false;
   saveData.data.dia++;
-
+  exibirContas();
   if (saveData.data.dia > 30) {
     saveData.data.dia = 1;
     saveData.data.mes++;
+    atualizarContasNovoMes();
     if (saveData.data.mes > 12) {
       saveData.data.mes = 1;
       saveData.data.ano++;
@@ -409,6 +519,7 @@ function startGame() {
   atualizarLoja();
   atualizarMissoes();
   verificarMissoes();
+  exibirContas();
 }
 
 // Inicia o jogo
