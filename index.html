@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Menu do Jogo</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="menu.css" />
 </head>
 <body>
-  <div id="menu">
+
+  <main id="menu" role="main" aria-label="Menu principal do jogo">
     <h1>Corrida Útil</h1>
-    <input type="text" id="inputNome" placeholder="Seu nome aqui">
-    <button onclick="novoJogo()">Novo Jogo</button>
-    <button onclick="carregarDeArquivo()">Carregar Jogo</button>
-  </div>
 
-
+    <form onsubmit="novoJogo(); return false;" aria-label="Formulário para iniciar jogo">
+      <label for="inputNome" class="sr-only">Nome do jogador</label>
+      <input 
+        type="text" 
+        id="inputNome" 
+        placeholder="Seu nome aqui" 
+        autocomplete="off" 
+        required 
+        aria-required="true"
+      />
+      <div class="btn-group">
+        <button type="submit">Novo Jogo</button>
+        <button type="button" onclick="carregarDeArquivo()">Carregar Jogo</button>
+      </div>
+    </form>
+  </main>
 
   <script src="menu.js"></script>
+
 </body>
 </html>

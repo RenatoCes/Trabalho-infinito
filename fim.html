@@ -3,21 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Fim de Jogo</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fim.css" />
 </head>
 <body>
-  <div class="tela-fim">
-    <h1>Fim de jogo você desmaiou por fome e sede!</12>
+
+  <main class="tela-fim" aria-label="Tela de fim de jogo">
+    <h1>Fim de jogo: você desmaiou por fome e sede!</h1>
     <p id="nivel"></p>
     <p id="dinheiro"></p>
     <button onclick="voltarMenu()">Voltar ao Menu</button>
-  </div>
+  </main>
 
   <script>
     const dados = JSON.parse(localStorage.getItem("fimDeJogo"));
 
-    document.getElementById("nivel").textContent = "Nível alcançado: " + dados.nivel;
-    document.getElementById("dinheiro").textContent = "Dinheiro acumulado: R$ " + dados.dinheiro;
+    if (dados) {
+      document.getElementById("nivel").textContent = "Nível alcançado: " + dados.nivel;
+      document.getElementById("dinheiro").textContent = "Dinheiro acumulado: R$ " + dados.dinheiro;
+    } else {
+      document.getElementById("nivel").textContent = "Dados indisponíveis.";
+    }
 
     function voltarMenu() {
       window.location.href = "index.html";
