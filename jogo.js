@@ -400,7 +400,7 @@ function trabalhar() {
   }
 
   botaoTrabalhar.disabled = true;
-  botaoTrabalhar.textContent = "Trabalhando...";
+  botaoTrabalhar.textContent = "Trabalhar...";
 
   setTimeout(() => {
     saveData.dinheiro += 10;
@@ -435,7 +435,7 @@ function trabalhar() {
 function dormir() {
   const botaoDormir = document.querySelector('button[onclick="dormir()"]');
   botaoDormir.disabled = true;
-  botaoDormir.textContent = "Dormindo...";
+  botaoDormir.textContent = "Dormir...";
 
   let horasAvancadas = 0;
 
